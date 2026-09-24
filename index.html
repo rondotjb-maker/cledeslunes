@@ -133,22 +133,6 @@ figcaption.illus-cap{text-align:center;color:var(--muted);font-size:12.5px;paddi
 .note{font-size:13px;color:var(--muted);margin-top:22px}
 
 /* modularity */
-.mod-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-top:40px}
-.pill-row{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 22px}
-.pill{border:1.5px solid var(--line);background:rgba(255,255,255,.03);color:#d8d4c8;border-radius:10px;padding:8px 16px;font:inherit;font-weight:700;cursor:pointer;font-size:13.5px}
-.pill small{display:block;font-weight:500;font-size:11px;color:var(--muted)}
-.pill.on{border-color:var(--silver);background:rgba(223,227,236,.14);color:var(--silver)}
-.cfg-out{background:rgba(255,255,255,.035);border:1px solid var(--line);border-radius:14px;padding:16px 18px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;color:var(--silver)}
-.combo{color:var(--muted);font-size:13px;margin-top:10px}
-figure.explode{margin:0;background:radial-gradient(circle at 50% 40%,#232557,#202249);border:1px solid var(--line);border-radius:18px;padding:12px}
-.explode figcaption{text-align:center;color:var(--muted);font-size:12.5px;padding:8px 0 4px}
-.lbl{font:600 12.5px var(--sans);fill:#e9e6dd}
-.lbl-sub{font:500 10.5px var(--sans);fill:#8b93a8}
-.lead-line{stroke:var(--silver);stroke-width:1;stroke-dasharray:3 4;opacity:.65}
-#explodeToggle{display:block;margin:10px auto 0}
-.part{transition:transform .8s cubic-bezier(.4,.1,.2,1)}
-.labels{opacity:0;transition:opacity .5s}
-.exploded .labels{opacity:1}
 
 /* contact */
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:36px}
@@ -171,7 +155,7 @@ footer{padding:44px 0 60px;color:var(--muted);font-size:13px;text-align:center}
 footer a{color:#b9b4a5}
 
 @media (max-width:860px){
-  .story-grid,.mod-grid,.contact-grid{grid-template-columns:1fr}
+  .story-grid,.contact-grid{grid-template-columns:1fr}
   .photo-band,.photo-band.three{grid-template-columns:1fr}
   .stats{grid-template-columns:repeat(2,1fr)}
   .team{grid-template-columns:1fr}
@@ -194,7 +178,7 @@ footer a{color:#b9b4a5}
       <div class="nav-row">
         <a href="#marque" onclick="return go('marque')">La Marque</a>
         <a href="#modeles" onclick="return go('modeles')">Modèles</a>
-        <a href="#modularite" onclick="return go('modularite')">Modularité</a>
+        <a href="#modularite" onclick="return go('modularite')">Atouts &amp; savoir-faire</a>
         <a href="#fabrique" onclick="return go('fabrique')">La Fabrique</a>
       </div>
       <div class="nav-row" style="margin-left:auto;margin-top:4px">
@@ -280,7 +264,7 @@ footer a{color:#b9b4a5}
   <div class="wrap">
     <div class="kicker">La collection</div>
     <h2>Nos modèles</h2>
-    <p class="lead">Chaque forme se décline en 23 coloris, 3 ponts et 3 tailles. Une même monture s'adapte à chaque visage — et se réassemble à l'envie.</p>
+    <p class="lead">Chaque forme se décline en 23 coloris, 3 ponts, et pour certaines 3 tailles. Une même monture s'adapte à chaque visage — et se réassemble à l'envie.</p>
     <div class="models-grid" id="modelsGrid"></div>
     <p class="note" id="modelsNote">Catalogue complet disponible chez FMI, distributeur exclusif de la marque.</p>
 
@@ -346,97 +330,34 @@ footer a{color:#b9b4a5}
     </div>
     <p class="lead" style="font-size:15px;color:var(--muted);margin-top:14px"><b>Réparable, recyclable, modulable</b> — tout en conservant un style pop et chic. Cinq ponts seront bientôt disponibles, dont un dédié au marché japonais, et la plupart des montures existent en -2 et +2 mm.</p>
 
-    <div class="mod-grid">
-      <div>
-        <div class="kicker" style="margin-top:8px">Configureur</div>
-        <div class="pill-row" id="pontRow">
-          <button class="pill on" data-v="23">Pont 23 <small>Petit nez</small></button>
-          <button class="pill" data-v="24">Pont 24 <small>Nez medium</small></button>
-          <button class="pill" data-v="26">Pont 26 <small>Nez large</small></button>
-        </div>
-        <div class="pill-row" id="tailleRow">
-          <button class="pill on" data-v="S">Taille S <small>45 mm</small></button>
-          <button class="pill" data-v="M">Taille M <small>46 mm</small></button>
-          <button class="pill" data-v="L">Taille L <small>47 mm</small></button>
-        </div>
-        <div class="pill-row" id="colRow"></div>
-        <div class="cfg-out" id="cfgOut"></div>
-        <div class="combo">3 ponts × 3 tailles × 23 coloris = <b>207 combinaisons</b> par forme, et 18 formes au catalogue.</div>
-      </div>
-
-      <figure class="explode">
-        <svg id="explodeSvg" viewBox="0 0 760 520" aria-label="Vue technique éclatée de la monture">
-          <defs>
-            <linearGradient id="ac" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#9a6fae"/><stop offset="1" stop-color="#6d4a80"/>
-            </linearGradient>
-          </defs>
-          <!-- branches -->
-          <g class="part" data-dy="-150" data-dx="-70">
-            <path d="M120 120 C70 128 40 150 28 196" fill="none" stroke="#cfd6e4" stroke-width="9" stroke-linecap="round"/>
-            <path d="M44 176 C36 186 32 192 28 200" fill="none" stroke="#8b93a8" stroke-width="11" stroke-linecap="round"/>
-            <g class="labels">
-              <text class="lbl" x="150" y="112">Branches bêta-titane</text>
-              <text class="lbl-sub" x="150" y="127">légèreté &amp; souplesse</text>
-              <line class="lead-line" x1="146" y1="120" x2="112" y2="122"/>
-            </g>
-          </g>
-          <g class="part" data-dy="-150" data-dx="70">
-            <path d="M640 120 C690 128 720 150 732 196" fill="none" stroke="#cfd6e4" stroke-width="9" stroke-linecap="round"/>
-            <path d="M716 176 C724 186 728 192 732 200" fill="none" stroke="#8b93a8" stroke-width="11" stroke-linecap="round"/>
-          </g>
-          <!-- charnières & vis -->
-          <g class="part" data-dy="-72">
-            <circle cx="150" cy="218" r="9" fill="#c6ccd8"/><circle cx="150" cy="218" r="3" fill="#5a6478"/>
-            <circle cx="610" cy="218" r="9" fill="#c6ccd8"/><circle cx="610" cy="218" r="3" fill="#5a6478"/>
-            <g class="labels">
-              <text class="lbl" x="380" y="196" text-anchor="middle">Charnières + vis de liaison</text>
-              <text class="lbl-sub" x="380" y="211" text-anchor="middle">démontables sans outil spécial</text>
-              <line class="lead-line" x1="300" y1="205" x2="164" y2="216"/>
-              <line class="lead-line" x1="460" y1="205" x2="596" y2="216"/>
-            </g>
-          </g>
-          <!-- cercles acétate -->
-          <g class="part" data-dy="0">
-            <rect x="150" y="238" width="180" height="96" rx="46" fill="url(#ac)" stroke="#c6ccd8" stroke-width="4"/>
-            <rect x="430" y="238" width="180" height="96" rx="46" fill="url(#ac)" stroke="#c6ccd8" stroke-width="4"/>
-            <g class="labels">
-              <text class="lbl" x="380" y="368" text-anchor="middle">Cercles en acétate</text>
-              <text class="lbl-sub" x="380" y="383" text-anchor="middle">23 coloris, 18 formes</text>
-              <line class="lead-line" x1="330" y1="352" x2="310" y2="342"/>
-              <line class="lead-line" x1="430" y1="352" x2="450" y2="342"/>
-            </g>
-          </g>
-          <!-- pont -->
-          <g class="part" data-dy="96">
-            <path d="M330 262 C355 246 405 246 430 262" fill="none" stroke="#cfd6e4" stroke-width="8" stroke-linecap="round"/>
-            <g class="labels">
-              <text class="lbl" x="380" y="404" text-anchor="middle">Pont bêta-titane</text>
-              <text class="lbl-sub" x="380" y="419" text-anchor="middle">3 largeurs : 23 · 24 · 26</text>
-              <line class="lead-line" x1="380" y1="388" x2="380" y2="282"/>
-            </g>
-          </g>
-          <!-- plaquettes -->
-          <g class="part" data-dy="170">
-            <path d="M332 292 C344 306 344 318 336 326" fill="none" stroke="#cfd6e4" stroke-width="6" stroke-linecap="round"/>
-            <path d="M428 292 C416 306 416 318 424 326" fill="none" stroke="#cfd6e4" stroke-width="6" stroke-linecap="round"/>
-            <g class="labels">
-              <text class="lbl" x="380" y="478" text-anchor="middle">Plaquettes ajustables</text>
-              <text class="lbl-sub" x="380" y="493" text-anchor="middle">confort &amp; maintien</text>
-              <line class="lead-line" x1="380" y1="462" x2="380" y2="330"/>
-            </g>
-          </g>
-        </svg>
-        <figcaption>Vue technique — cliquez pour assembler / éclater la monture</figcaption>
-        <button class="btn" id="explodeToggle">⚙ Éclater la monture</button>
-      </figure>
-    </div>
 
     <div class="stats" style="margin-top:56px">
       <div class="stat"><div class="n">7 g</div><div class="l">Grâce au bêta-titane</div></div>
       <div class="stat"><div class="n">3 + 3</div><div class="l">Ponts &amp; tailles interchangeables</div></div>
       <div class="stat"><div class="n">100 %</div><div class="l">Démontable &amp; recyclable</div></div>
       <div class="stat"><div class="n">FR</div><div class="l">Fabrication près de Bordeaux</div></div>
+    </div>
+
+    <div style="margin-top:60px">
+      <div class="kicker">Le savoir-faire</div>
+      <h2>Maîtriser la machine comme le regard</h2>
+      <div class="story-grid">
+        <div>
+          <p>Pour maîtriser les designs jusqu'au bout, il était indispensable d'usiner et de dompter les <b>5 axes</b> de la machine — aujourd'hui, La Fabrique maîtrise aussi la <b>conception 3D</b> de bout en bout.</p>
+          <p>La photographie a appris l'exigence de la composition ; l'optique, l'exigence des matériaux et de la qualité. Deux écoles qui se retrouvent dans chaque monture.</p>
+        </div>
+        <div>
+          <h3 style="margin-top:0">Matériaux premium</h3>
+          <ul class="timeline" style="margin-top:12px">
+            <li><div class="t">Bêta-titane</div><div class="d">Fin, résistant, pas trop élastique (grade précis) — traité IP Plating, le traitement le plus résistant.</div></li>
+            <li><div class="t">Charnière rivetée</div><div class="d">Objectif zéro vis, avec anneau de PEEK (plus résistant que l'acier) pour la friction.</div></li>
+            <li><div class="t">Acétate de cellulose</div><div class="d">Décoracet (Oyonnax), Mazzucchelli, Laes…</div></li>
+            <li><div class="t">Cheville d'assemblage</div><div class="d">Impression résine 3D.</div></li>
+            <li><div class="t">Plaquettes</div><div class="d">Silicone, pour un confort irréprochable.</div></li>
+          </ul>
+        </div>
+      </div>
+      <p class="lead" style="font-size:15px;color:var(--muted);margin-top:20px">Côté design : 7 g monture nue, cercles centrés sur la pupille, et comme le poids se situe devant les plaquettes, les manchons sont lestés pour contrebalancer ce poids — la légèreté ne s'improvise pas.</p>
     </div>
   </div>
 </section>
@@ -474,27 +395,6 @@ footer a{color:#b9b4a5}
       </div>
     </div>
 
-    <div style="margin-top:60px">
-      <div class="kicker">Le savoir-faire</div>
-      <h2>Maîtriser la machine comme le regard</h2>
-      <div class="story-grid">
-        <div>
-          <p>Pour maîtriser les designs jusqu'au bout, il était indispensable d'usiner et de dompter les <b>5 axes</b> de la machine — aujourd'hui, La Fabrique maîtrise aussi la <b>conception 3D</b> de bout en bout.</p>
-          <p>La photographie a appris l'exigence de la composition ; l'optique, l'exigence des matériaux et de la qualité. Deux écoles qui se retrouvent dans chaque monture.</p>
-        </div>
-        <div>
-          <h3 style="margin-top:0">Matériaux premium</h3>
-          <ul class="timeline" style="margin-top:12px">
-            <li><div class="t">Bêta-titane</div><div class="d">Fin, résistant, pas trop élastique (grade précis) — traité IP Plating, le traitement le plus résistant.</div></li>
-            <li><div class="t">Charnière rivetée</div><div class="d">Objectif zéro vis, avec anneau de PEEK (plus résistant que l'acier) pour la friction.</div></li>
-            <li><div class="t">Acétate de cellulose</div><div class="d">Décoracet (Oyonnax), Mazzucchelli, Laes…</div></li>
-            <li><div class="t">Cheville d'assemblage</div><div class="d">Impression résine 3D.</div></li>
-            <li><div class="t">Plaquettes</div><div class="d">Silicone, pour un confort irréprochable.</div></li>
-          </ul>
-        </div>
-      </div>
-      <p class="lead" style="font-size:15px;color:var(--muted);margin-top:20px">Côté design : 9 g monture nue, cercles centrés sur la pupille, et manchons lestés devant les plaquettes pour contrebalancer le poids — la légèreté ne s'improvise pas.</p>
-    </div>
   </div>
 </section>
 
@@ -884,75 +784,6 @@ window.addEventListener("hashchange", route);
 function go(sec){ show(sec); try{ history.replaceState(null,"","#"+sec); }catch(e){} return false; }
 window.go = go;
 route();
-
-/* ============ configurateur ============ */
-var COLORIS = Object.keys(TEINTES).map(function(k){return {code:k, hex:TEINTES[k]};});
-var cfg = {pont:"23", taille:"S", col:COLORIS[1]};
-var colRow = document.getElementById("colRow");
-COLORIS.forEach(function(c,i){
-  var b = document.createElement("button");
-  b.className = "pill" + (i===1?" on":"");
-  b.dataset.v = c.code;
-  b.innerHTML = '<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:'+c.hex+';vertical-align:-1px;margin-right:6px;border:1px solid rgba(255,255,255,.6)"></span>'+c.code;
-  b.onclick = function(){ setPill(colRow,b); cfg.col=c; renderCfg(); };
-  colRow.appendChild(b);
-});
-function setPill(row,btn){ row.querySelectorAll(".pill").forEach(function(p){p.classList.remove("on");}); btn.classList.add("on"); }
-document.getElementById("pontRow").addEventListener("click", function(e){
-  var b = e.target.closest(".pill"); if(!b) return; setPill(this,b); cfg.pont=b.dataset.v; renderCfg();
-});
-document.getElementById("tailleRow").addEventListener("click", function(e){
-  var b = e.target.closest(".pill"); if(!b) return; setPill(this,b); cfg.taille=b.dataset.v; renderCfg();
-});
-
-var cfgSvg = document.getElementById("cfgSvg");
-function renderCfg(){
-  document.getElementById("cfgOut").textContent =
-    "Réf. ARIEL " + cfg.col.code;
-  var rimScale = cfg.taille==="S" ? 0.92 : cfg.taille==="M" ? 1 : 1.08;
-  var bridgeShift = (cfg.pont==="23" ? 12 : cfg.pont==="24" ? 0 : -12);
-  var col = cfg.col.hex;
-  var svg = document.getElementById("cfgSvg");
-  if(svg){
-    svg.querySelectorAll(".rimL,.rimR").forEach(function(r){
-      var box = {L:{x:96,w:130},R:{x:294,w:130}}[r.classList.contains("rimL")?"L":"R"];
-      var cx = box.x + box.w/2, cy = 72;
-      r.setAttribute("transform","translate("+cx+","+cy+") scale("+rimScale+") translate("+(-cx)+","+(-cy)+")");
-      r.setAttribute("fill", col);
-    });
-    var br = document.getElementById("cfgBridge");
-    if(br){ br.setAttribute("d","M226 "+(58+bridgeShift*0.4)+" C246 "+(46+bridgeShift)+", 274 "+(46+bridgeShift)+", 294 "+(58+bridgeShift*0.4)); }
-  }
-}
-/* svg du configurateur (inséré ici pour être manipulable) */
-(function(){
-  var holder = document.createElement("div");
-  holder.innerHTML = '<svg id="cfgSvg" viewBox="0 0 520 150" style="margin-top:18px">'
-    + '<g class="rimL" stroke="#c6ccd8" stroke-width="4"><rect x="96" y="42" width="130" height="62" rx="31" stroke-width="4"/></g>'
-    + '<g class="rimR" stroke="#c6ccd8" stroke-width="4"><rect x="294" y="42" width="130" height="62" rx="31" stroke-width="4"/></g>'
-    + '<path id="cfgBridge" d="M226 58 C246 46 274 46 294 58" fill="none" stroke="#cfd6e4" stroke-width="6" stroke-linecap="round"/>'
-    + '<path d="M20 50 C50 42 70 42 96 50" fill="none" stroke="#cfd6e4" stroke-width="5" stroke-linecap="round"/>'
-    + '<path d="M500 50 C470 42 450 42 424 50" fill="none" stroke="#cfd6e4" stroke-width="5" stroke-linecap="round"/>'
-    + '</svg>';
-  document.getElementById("cfgOut").parentNode.insertBefore(holder.firstChild, document.getElementById("cfgOut"));
-})();
-renderCfg();
-
-/* ============ vue éclatée ============ */
-var exSvg = document.getElementById("explodeSvg");
-var btn = document.getElementById("explodeToggle");
-var exploded = false;
-function applyExplode(on){
-  exSvg.classList.toggle("exploded", on);
-  exSvg.querySelectorAll(".part").forEach(function(p){
-    var dy = on ? parseFloat(p.dataset.dy||0) : 0;
-    var dx = on ? parseFloat(p.dataset.dx||0) : 0;
-    p.style.transform = "translate("+dx+"px,"+dy+"px)";
-  });
-  btn.textContent = on ? "🔧 Réassembler la monture" : "⚙ Éclater la monture";
-}
-btn.onclick = function(){ exploded = !exploded; applyExplode(exploded); };
-applyExplode(false);
 
 /* ============ formulaire (mailto) ============ */
 document.getElementById("contactForm").addEventListener("submit", function(e){
